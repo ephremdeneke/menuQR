@@ -16,15 +16,17 @@ analytics, and per-table QR code generation.
 
 ## Features
 
-### Customer Menu (`/sinan`, `/?table=T05`)
+### Customer Menu (`/sinan`, root `/`)
 - Story-driven scrolling experience: Hero → Today at Sinan → Menu → Coffee Story → Footer
 - Hero with scroll parallax and rotating brand badge
 - Editorial menu grid with varied card layouts
-- Product detail bottom-sheet with quantity, notes, add-to-order
-- Floating cart + clean bottom-sheet checkout with table selection
-- Animated order-success screen
+- Product detail bottom-sheet (view information)
 - Search with highlighted matches, dark mode, skeleton loaders, empty & sold-out states
 - Smart QR table detection from the URL (`?table=T05`)
+
+> **Ordering is currently DISABLED (menu display only).** The cart, checkout and
+> order-success flows exist in the code but are hidden. To enable them later, set
+> `ORDERING_ENABLED = true` in `src/config.js` — no other change needed.
 
 ### Admin (`/admin`)
 - Protected by login (default `admin` / `sinan123`)
@@ -32,7 +34,7 @@ analytics, and per-table QR code generation.
 - Live Kitchen Display System (KDS): New → Confirmed → Preparing → Ready
 - Orders table with status badges
 - Menu CRUD: edit price/photo/name/description/category, add new items, delete, toggle availability
-- Per-table QR code generation with SVG download and copy-link
+- General menu QR code with SVG download + per-table QR (future feature)
 
 ## Getting Started
 

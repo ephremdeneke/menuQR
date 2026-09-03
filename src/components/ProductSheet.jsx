@@ -4,7 +4,7 @@ import { formatETB } from '../data/menu'
 import { useCart } from '../store'
 import BottomSheet from './BottomSheet'
 
-export default function ProductSheet({ product, onClose }) {
+export default function ProductSheet({ product, onClose, ordering = true }) {
   const add = useCart((s) => s.add)
   const [qty, setQty] = useState(1)
   const [note, setNote] = useState('')
@@ -76,62 +76,75 @@ export default function ProductSheet({ product, onClose }) {
           {product.description}
         </p>
 
-        {/* Quantity + Add (inline) */}
-        <div className="mt-5 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-1 rounded-full border border-[var(--line)] p-1">
-            <button
-              aria-label="Decrease quantity"
-              onClick={() => setQty((q) => Math.max(1, q - 1))}
-              className="grid h-9 w-9 place-items-center rounded-full text-[var(--ink)] transition-transform active:scale-90 disabled:opacity-30"
-              disabled={qty <= 1}
-            >
-              <Minus size={16} />
-            </button>
-            <span className="w-8 text-center font-sans text-base font-semibold text-[var(--ink)]">
-              {qty}
-            </span>
-            <button
-              aria-label="Increase quantity"
-              onClick={() => setQty((q) => q + 1)}
-              className="grid h-9 w-9 place-items-center rounded-full text-[var(--ink)] transition-transform active:scale-90"
-            >
-              <Plus size={16} />
+        {ordering ? (
+          <>
+            {/* Quantity + Add (inline) */}
+            <div className="mt-5 flex items-center justify-between gap-4">
+              <div className="flex items-center gap-1 rounded-full border border-[var(--line)] p-1">
+                <button
+                  aria-label="Decrease quantity"
+                  onClick={() => setQty((q) => Math.max(1, q - 1))}
+                  className="grid h-9 w-9 place-items-center rounded-full text-[var(--ink)] transition-transform active:scale-90 disabled:opacity-30"
+                  disabled={qty <= 1}
+                >
+                  <Minus size={16} />
+                </button>
+                <span className="w-8 text-center font-sans text-base font-semibold text-[var(--ink)]">
+                  {qty}
+                </span>
+                <button
+                  aria-label="Increase quantity"
+                  onClick={() => setQty((q) => q + 1)}
+                  className="grid h-9 w-9 place-items-center rounded-full text-[var(--ink)] transition-transform active:scale-90"
+                >
+                  <Plus size={16} />
+                </button>
+              </div>
+
+              <button
+                onClick={handleAdd}
+                disabled={soldOut}
+                className="btn-primary flex-1 !py-3.5"
+              >
+                {confirming ? (
+                  <>
+                    <Check size={18} /> Added
+                  </>
+                ) : soldOut ? (
+                  'Unavailable'
+                ) : (
+                  `Add to Order · ${formatETB(product.price * qty)}`
+                )}
+              </button>
+            </div>
+
+            {/* Note */}
+            <div className="mt-4">
+              <label
+                htmlFor="product-note"
+                className="font-sans text-xs font-semibold uppercase tracking-[0.12em] text-[var(--muted)]"
+              >
+                Add a note
+              </label>
+              <input
+                id="product-note"
+                value={note}
+                onChange={(e) => setNote(e.target.value)}
+                placeholder="e.g. Less sugar, extra shot…"
+                className="mt-2 w-full rounded-xl border border-[var(--line)] bg-[var(--surface-2)] px-4 py-3 font-sans text-sm text-[var(--ink)] placeholder:text-[var(--muted)] focus:border-[var(--accent)] focus:outline-none"
+              />
+            </div>
+          </>
+        ) : (
+          <div className="mt-6">
+            <p className="font-sans text-xs uppercase tracking-[0.2em] text-[var(--muted)]">
+              {product.prep ? `${product.prep} · ` : ''}Available at Sinan Cafe
+            </p>
+            <button onClick={onClose} className="btn-ghost mt-4 w-full">
+              Close
             </button>
           </div>
-
-          <button
-            onClick={handleAdd}
-            disabled={soldOut}
-            className="btn-primary flex-1 !py-3.5"
-          >
-            {confirming ? (
-              <>
-                <Check size={18} /> Added
-              </>
-            ) : soldOut ? (
-              'Unavailable'
-            ) : (
-              `Add to Order · ${formatETB(product.price * qty)}`
-            )}
-          </button>
-        </div>
-
-        {/* Note */}
-        <div className="mt-4">
-          <label
-            htmlFor="product-note"
-            className="font-sans text-xs font-semibold uppercase tracking-[0.12em] text-[var(--muted)]"
-          >
-            Add a note
-          </label>
-          <input
-            id="product-note"
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-            placeholder="e.g. Less sugar, extra shot…"
-            className="mt-2 w-full rounded-xl border border-[var(--line)] bg-[var(--surface-2)] px-4 py-3 font-sans text-sm text-[var(--ink)] placeholder:text-[var(--muted)] focus:border-[var(--accent)] focus:outline-none"
-          />
-        </div>
+        )}
       </div>
     </BottomSheet>
   )

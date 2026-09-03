@@ -9,23 +9,13 @@ import Checkout from '../components/Checkout'
 import SearchOverlay from '../components/SearchOverlay'
 import Story from '../components/Story'
 import Footer from '../components/Footer'
-import { products } from '../data/menu'
-import { useApp } from '../store'
-import { useTableParam } from '../lib/hooks'
+import { ORDERING_ENABLED } from '../config'
 
 export default function MenuExperience() {
   const [active, setActive] = useState('all')
   const [selected, setSelected] = useState(null)
   const [searchOpen, setSearchOpen] = useState(false)
   const [booting, setBooting] = useState(true)
-
-  const urlTable = useTableParam()
-  const setTable = useApp((s) => s.setTable)
-
-  // Read table from URL into store
-  useEffect(() => {
-    if (urlTable) setTable(urlTable)
-  }, [urlTable, setTable])
 
   // Simulate initial data load to show elegant skeleton
   useEffect(() => {
@@ -39,10 +29,13 @@ export default function MenuExperience() {
 
   return (
     <div className="min-h-[100svh] bg-[var(--bg)] text-[var(--ink)]">
-      <Navbar onSearch={() => setSearchOpen(true)} />
+      <Navbar
+        onSearch={() => setSearchOpen(true)}
+        ordering={ORDERING_ENABLED}
+      />
       <main>
         <Hero onExplore={scrollToMenu} />
-        <Featured />
+        <Featured ordering={ORDERING_ENABLED} />
         <div id="menu">
           <MenuSection
             active={active}
@@ -56,9 +49,13 @@ export default function MenuExperience() {
       </main>
 
       {/* Overlays & sheets */}
-      <ProductSheet product={selected} onClose={() => setSelected(null)} />
-      <Checkout />
-      <FloatingCart />
+      <ProductSheet
+        product={selected}
+        onClose={() => setSelected(null)}
+        ordering={ORDERING_ENABLED}
+      />
+      {ORDERING_ENABLED && <Checkout />}
+      {ORDERING_ENABLED && <FloatingCart />}
       <SearchOverlay
         open={searchOpen}
         onClose={() => setSearchOpen(false)}
@@ -66,6 +63,7 @@ export default function MenuExperience() {
           setSearchOpen(false)
           setSelected(p)
         }}
+        ordering={ORDERING_ENABLED}
       />
     </div>
   )

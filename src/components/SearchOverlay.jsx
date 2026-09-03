@@ -20,7 +20,7 @@ function Highlight({ text, query }) {
   )
 }
 
-export default function SearchOverlay({ open, onClose, onOpenProduct }) {
+export default function SearchOverlay({ open, onClose, onOpenProduct, ordering = true }) {
   const [q, setQ] = useState('')
   const inputRef = useRef(null)
   const products = useMenu((s) => s.products)
@@ -137,13 +137,15 @@ export default function SearchOverlay({ open, onClose, onOpenProduct }) {
                     <span className="font-sans text-sm font-semibold text-[var(--ink)]">
                       {formatETB(p.price)}
                     </span>
-                    <button
-                      onClick={() => add(p)}
-                      aria-label={`Add ${p.name} to order`}
-                      className="grid h-9 w-9 place-items-center rounded-full border border-[var(--line)] text-[var(--ink)] transition-all hover:border-[var(--accent)] hover:bg-[var(--accent-soft)] active:scale-90"
-                    >
-                      <ArrowRight size={15} />
-                    </button>
+                    {ordering && (
+                      <button
+                        onClick={() => add(p)}
+                        aria-label={`Add ${p.name} to order`}
+                        className="grid h-9 w-9 place-items-center rounded-full border border-[var(--line)] text-[var(--ink)] transition-all hover:border-[var(--accent)] hover:bg-[var(--accent-soft)] active:scale-90"
+                      >
+                        <ArrowRight size={15} />
+                      </button>
+                    )}
                   </div>
                 </div>
               </li>
