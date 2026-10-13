@@ -1,6 +1,5 @@
 import { Sun, Moon, Search, ShoppingBag, MapPin } from 'lucide-react'
 import { useApp, useCart } from '../store'
-import { useTableParam } from '../lib/hooks'
 
 export default function Navbar({ onSearch, onCart, ordering = true }) {
   const { theme, setTheme, table } = useApp()

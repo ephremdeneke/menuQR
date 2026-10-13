@@ -1,10 +1,7 @@
-import { useRef } from 'react'
 import { Check } from 'lucide-react'
 import BottomSheet from './BottomSheet'
 
 export default function OrderSuccess({ open, orderNo, table, onClose }) {
-  const cupRef = useRef(null)
-
   return (
     <BottomSheet
       open={open}
@@ -28,7 +25,7 @@ export default function OrderSuccess({ open, orderNo, table, onClose }) {
         </div>
 
         {/* Steam cup illustration */}
-        <div ref={cupRef} className="relative mt-8 h-16 w-24">
+        <div className="relative mt-8 h-16 w-24">
           {/* steam */}
           {[0, 1, 2].map((i) => (
             <span

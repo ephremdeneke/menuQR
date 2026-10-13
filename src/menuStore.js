@@ -21,15 +21,11 @@ export const useMenu = create(
         set((s) => ({ products: s.products.filter((p) => p.id !== id) })),
       toggleAvailable: (id) =>
         set((s) => ({
-          products: s.products.map((p) =>
-            p.id === id
-              ? {
-                  ...p,
-                  available: !p.available,
-                  soldOut: p.available ? true : p.soldOut,
-                }
-              : p
-          ),
+          products: s.products.map((p) => {
+            if (p.id !== id) return p
+            const soldOut = !p.soldOut
+            return { ...p, soldOut, available: !soldOut }
+          }),
         })),
       resetMenu: () => set({ products: seedProducts }),
     }),

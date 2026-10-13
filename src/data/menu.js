@@ -245,4 +245,5 @@ export const products = [
   },
 ]
 
-export const formatETB = (value) => `${value.toLocaleString()} ETB`
+export const formatETB = (value) =>
+  `${Number(value || 0).toLocaleString('en-US')} ETB`

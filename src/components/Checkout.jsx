@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Minus, Plus, Trash2 } from 'lucide-react'
 import { useCart, useApp, useCheckout } from '../store'
 import { formatETB, cafeInfo } from '../data/menu'
@@ -24,15 +24,13 @@ export default function Checkout() {
   const [placing, setPlacing] = useState(false)
 
   useEffect(() => {
-    if (open) {
-      setLocalTable(table || '')
-      if (step === 'success') {
-        // clear cart after success
-        if (items.length > 0) clear()
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open])
+    if (open) setLocalTable(table || '')
+  }, [open, table])
+
+  // Clear the cart once an order has been placed successfully
+  useEffect(() => {
+    if (open && step === 'success') clear()
+  }, [open, step, clear])
 
   const placeOrder = () => {
     setPlacing(true)

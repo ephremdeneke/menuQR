@@ -59,14 +59,16 @@ export default function Hero({ onExplore }) {
       <div className="absolute inset-0 overflow-hidden">
         <div
           ref={imgRef}
-          className="absolute inset-[-6%] bg-cover bg-center will-change-transform"
-          style={{
-            backgroundImage: `url(https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1600&q=80)`,
-            opacity: loaded ? 1 : 0,
-            transition: 'opacity 1.2s ease',
-          }}
-          onLoad={() => setLoaded(true)}
-        />
+          className="absolute inset-[-6%] will-change-transform"
+          style={{ opacity: loaded ? 1 : 0, transition: 'opacity 1.2s ease' }}
+        >
+          <img
+            src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1600&q=80"
+            alt=""
+            onLoad={() => setLoaded(true)}
+            className="h-full w-full object-cover"
+          />
+        </div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/30 to-[var(--espresso)]" />
       </div>
 

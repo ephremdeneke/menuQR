@@ -21,6 +21,7 @@ import Orders from './Orders'
 import MenuManage from './MenuManage'
 import QRCodes from './QRCodes'
 import Login from './Login'
+import SettingsPage from './Settings'
 import { useAuth } from '../../authStore'
 
 const sections = [
@@ -103,6 +104,8 @@ export default function Admin() {
           </div>
           <button
             onClick={() => setMobileNav(!mobileNav)}
+            aria-label="Toggle navigation"
+            aria-expanded={mobileNav}
             className="rounded-lg px-3 py-2 text-sm font-medium text-[#5c4f40] hover:bg-[#efe9dd]"
           >
             Menu
@@ -142,10 +145,10 @@ export default function Admin() {
           {section === 'kitchen' && <Kitchen />}
           {section === 'menu' && <MenuManage />}
           {section === 'qrcodes' && <QRCodes />}
+          {section === 'settings' && <SettingsPage />}
           {(section === 'categories' ||
             section === 'tables' ||
-            section === 'analytics' ||
-            section === 'settings') && <Placeholder title={sections.find((s) => s.id === section)?.name} />}
+            section === 'analytics') && <Placeholder title={sections.find((s) => s.id === section)?.name} />}
         </main>
       </div>
     </div>

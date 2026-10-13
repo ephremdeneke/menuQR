@@ -19,7 +19,7 @@ export default function MenuExperience() {
 
   // Simulate initial data load to show elegant skeleton
   useEffect(() => {
-    const t = setTimeout(() => setBooting(false), 1000)
+    const t = setTimeout(() => setBooting(false), 450)
     return () => clearTimeout(t)
   }, [])
 
@@ -35,7 +35,7 @@ export default function MenuExperience() {
       />
       <main>
         <Hero onExplore={scrollToMenu} />
-        <Featured ordering={ORDERING_ENABLED} />
+        <Featured ordering={ORDERING_ENABLED} onOpenProduct={setSelected} />
         <div id="menu">
           <MenuSection
             active={active}

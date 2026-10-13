@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Minus, Plus, Heart, Check } from 'lucide-react'
 import { formatETB } from '../data/menu'
 import { useCart } from '../store'
@@ -10,6 +10,14 @@ export default function ProductSheet({ product, onClose, ordering = true }) {
   const [note, setNote] = useState('')
   const [liked, setLiked] = useState(false)
   const [confirming, setConfirming] = useState(false)
+
+  // Reset local state whenever a different product is opened
+  useEffect(() => {
+    setQty(1)
+    setNote('')
+    setLiked(false)
+    setConfirming(false)
+  }, [product?.id])
 
   if (!product) return null
 

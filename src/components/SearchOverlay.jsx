@@ -51,7 +51,7 @@ export default function SearchOverlay({ open, onClose, onOpenProduct, ordering =
     return products.filter((p) =>
       (p.name + ' ' + p.amharic + ' ' + (p.description || '')).toLowerCase().includes(term)
     )
-  }, [q])
+  }, [q, products])
 
   if (!open) return null
 

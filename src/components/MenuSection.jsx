@@ -13,7 +13,7 @@ export default function MenuSection({ active, onSelect, onOpenProduct, skeleton 
   const filterProducts = useMemo(() => {
     if (!products || products.length === 0) return []
     return active === 'all' ? products : products.filter((p) => p.category === active)
-  }, [active])
+  }, [active, products])
 
   const scrollToCategory = (id) => {
     onSelect(id)
@@ -59,7 +59,6 @@ export default function MenuSection({ active, onSelect, onOpenProduct, skeleton 
                   activeCat ? 'text-[var(--espresso)] dark:text-[var(--bg)]' : 'text-[var(--muted)] hover:text-[var(--ink)]'
                 }`}
               >
-                {cat.name}
                 {activeCat && (
                   <span
                     className="absolute inset-0 rounded-full bg-[var(--accent)]/15"
