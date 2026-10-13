@@ -1,9 +1,8 @@
 # Sinan Cafe — Premium QR Menu
 
 A high-end, immersive digital cafe experience for Sinan Cafe (Addis Ababa, Ethiopia).
-Customers scan a QR code at their table, browse an editorial-style menu, and place
-orders. Includes a full admin panel for menu management, order/kitchen tracking,
-analytics, and per-table QR code generation.
+Customers scan a QR code and browse an editorial-style menu. Includes an admin panel
+for menu, category, and QR management, plus order/kitchen and analytics screens.
 
 ## Tech Stack
 
@@ -22,7 +21,6 @@ analytics, and per-table QR code generation.
 - Editorial menu grid with varied card layouts
 - Product detail bottom-sheet (view information)
 - Search with highlighted matches, dark mode, skeleton loaders, empty & sold-out states
-- Smart QR table detection from the URL (`?table=T05`)
 
 > **Ordering is currently DISABLED (menu display only).** The cart, checkout and
 > order-success flows exist in the code but are hidden. To enable them later, set
@@ -34,7 +32,9 @@ analytics, and per-table QR code generation.
 - Live Kitchen Display System (KDS): New → Confirmed → Preparing → Ready
 - Orders table with status badges
 - Menu CRUD: edit price/photo/name/description/category, add new items, delete, toggle availability
+- Category management: add, rename, reorder and delete categories (delete is guarded while items exist)
 - General menu QR code with SVG download + per-table QR (future feature)
+- Settings: change admin credentials and reset the menu to defaults
 
 ## Getting Started
 

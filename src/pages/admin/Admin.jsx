@@ -5,20 +5,16 @@ import {
   ChefHat,
   Coffee,
   Layers,
-  Grid3X3,
   QrCode,
   BarChart3,
   Settings,
   LogOut,
-  TrendingUp,
-  ShoppingBag,
-  Receipt,
-  Soup,
 } from 'lucide-react'
 import Dashboard from './Dashboard'
 import Kitchen from './Kitchen'
 import Orders from './Orders'
 import MenuManage from './MenuManage'
+import Categories from './Categories'
 import QRCodes from './QRCodes'
 import Login from './Login'
 import SettingsPage from './Settings'
@@ -30,7 +26,6 @@ const sections = [
   { id: 'kitchen', name: 'Kitchen', icon: ChefHat },
   { id: 'menu', name: 'Menu', icon: Coffee },
   { id: 'categories', name: 'Categories', icon: Layers },
-  { id: 'tables', name: 'Tables', icon: Grid3X3 },
   { id: 'qrcodes', name: 'QR Codes', icon: QrCode },
   { id: 'analytics', name: 'Analytics', icon: BarChart3 },
   { id: 'settings', name: 'Settings', icon: Settings },
@@ -144,11 +139,12 @@ export default function Admin() {
           {section === 'orders' && <Orders />}
           {section === 'kitchen' && <Kitchen />}
           {section === 'menu' && <MenuManage />}
+          {section === 'categories' && <Categories />}
           {section === 'qrcodes' && <QRCodes />}
           {section === 'settings' && <SettingsPage />}
-          {(section === 'categories' ||
-            section === 'tables' ||
-            section === 'analytics') && <Placeholder title={sections.find((s) => s.id === section)?.name} />}
+          {section === 'analytics' && (
+            <Placeholder title={sections.find((s) => s.id === section)?.name} />
+          )}
         </main>
       </div>
     </div>
